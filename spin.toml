@@ -1,0 +1,24 @@
+spin_manifest_version = "1"
+authors = ["sjriddle"]
+description = ""
+name = "near-http-spin"
+trigger = { type = "http", base = "/" }
+version = "0.1.0"
+
+[[component]]
+id = "near-account"
+source = "target/wasm32-wasi/release/near_http_spin.wasm"
+allowed_http_hosts = ["https://rpc.mainnet.near.org"]
+[component.trigger]
+route = "/account"
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
+
+[[component]]
+id = "near-wildcard"
+source = "target/wasm32-wasi/release/near_http_spin.wasm"
+allowed_http_hosts = ["insecure:allow-all"]
+[component.trigger]
+route = "/wildcard"
+[component.build]
+command = "cargo build --target wasm32-wasi --release"
